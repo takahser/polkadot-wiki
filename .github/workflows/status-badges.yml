@@ -1,0 +1,25 @@
+name: Update Status Badges
+on:
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  status_badges:
+    runs-on: ubuntu-latest
+    name: Update status badges
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Check and update badges
+        uses: w3f/status-badges@v1.1
+        with:
+          path: 'docs/build/build-open-source.md'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          find-all-links: true
+          pull-request: true
+          pr-branch: 'polkadot-wiki/master'
+          active-emoji: ':green_heart:'
+          stale-emoji: ':yellow_heart:'
+          inactive-emoji: ':broken_heart:'
